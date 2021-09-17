@@ -1,0 +1,40 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "montserrat",sans-serif;
+	box-sizing: border-box;
+}
+.container{
+	max-width: 800px;
+	margin: auto;
+	padding: 10px;
+}
+h3{
+	margin: 10px 0;
+	text-align: center;
+}
+
+.task{
+	width: 100%;
+	background: rgba(255,255,255,0.5);
+	padding: 18px;
+	margin: 6px 0;
+	overflow: hidden;
+}
+.task i{
+	float: right;
+	margin-left: 20px;
+	cursor: pointer;
+}
+.comp .task{
+	background:rgba(0,0,0,.5);
+	color: #fff;
+}
+.evenrowcolor{
+	background-color: rgba(0,0,0,.5);
+}
+.oddrowcolor{
+	background-color: rgba(255,255,255,.5);
+}
+
+}

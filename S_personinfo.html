@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>学生请假系统</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/iconfont.css">
+<style type="text/css">
+.progress_title {
+    font-size: 24px;
+    color: #09F;
+    text-align: center;
+}
+#apDiv1 {
+    position: absolute;
+    width:100%;
+    height: 400px;
+    z-index: 12;
+    visibility: visible;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+<script type="text/javascript">
+function showdiv(id){ 
+  var t=document.getElementById(id);
+  t.style.display='block';    
+}
+
+function hidediv(id){
+  var s=document.getElementById(id);
+  s.style.display='none';   
+}
+
+function showpersoninfo()
+{
+  showdiv('tzgg_card_personinfo');
+  hidediv('tzgg_card_leavehistory');
+  hidediv('tzgg_card_leave');
+  hidediv('tzgg_card_process');
+}
+
+function showprocess()
+{
+  hidediv('tzgg_card_personinfo');
+  hidediv('tzgg_card_leavehistory');
+  hidediv('tzgg_card_leave');
+  showdiv('tzgg_card_process');
+}
+
+function showleavehistory()
+{
+  hidediv('tzgg_card_personinfo');
+  showdiv('tzgg_card_leavehistory');
+  hidediv('tzgg_card_leave');
+  hidediv('tzgg_card_process');
+}
+
+function showleave()
+{
+  hidediv('tzgg_card_personinfo');
+  hidediv('tzgg_card_leavehistory');
+  showdiv('tzgg_card_leave');
+  hidediv('tzgg_card_process');
+}
+
+
+</script>
+</head>
+<body>
+<div class="main_wrap" tabindex="0" style="overflow: hidden; outline: none;">
+  <canvas id="canvas" style="position:absolute;z-index:-1;"></canvas>
+  <div class="zjnu_header">
+    <div class="header_inner"> <img class="logo" src="img/logo2.png" alt=""> <span class="wsbsdt">学生请假系统——学生端</span>
+      <div class="head_right">
+        <p class="page_item"  ><a  onClick="showpersoninfo();" style="color:white">个人中心</a></p>
+        <p id="mycenter">请假中心 <i class="iconfont icon-down"></i> <span class="grzxnum" style="display: none;"></span></p>
+        <p id="gologin" class="gologin"><img src="img/dltx.png" alt=""> <a  href="login.html" style="color:white">退出登陆</a></p>
+        <p id="haslogin"><img src="http://ehall.zjnu.edu.cn/new/indexzjnu.html" alt=""> <span></span></p>
+      </div>
+    </div>
+  </div>
+  <div class="zjnu_user_link" style="display: none;">
+    <p><a href="Student/S_leave.html" >请假/补假</a><span class="rwzxnum"></span></p>
+    <p><a href="Student/S_process.html" >请假进度</a></p>
+    <p><a href="Student/S_leavehistoty.html" >请假记录</a></p>
+  </div>
+  <div class="zjnu_topbg"></div>
+  <div class="zjnu_content" style="display: block;">
+    <div class="content_home">
+      <div class="content_left">
+        <h3 class="fwbmsx">事项</h3>
+        <ul class="fwbm_wrap">
+          <li class="fwbm_list_item"> <a style="color:black" onClick="showpersoninfo();">个人中心</a> <i class="iconfont icon-keyboard_arrow_right"></i>
+            <div class="showfwsxapp"></div>
+          </li>
+          <li class="fwbm_list_item">请假中心 <i class="iconfont icon-keyboard_arrow_right"></i>
+            <div class="showfwsxapp">
+              <div class="fwbm_app_waic" style="width: 200px; top: 0px;">
+                <ul class="fwbm_app_wrap">
+                  <li title="请假/补假" class="appflag bmlistapp"> <a onClick="showleave();" style="color:black" >请假/补假</a> </li>
+                  <li title="请假进度"  class="appflag bmlistapp"> <a onClick="showprocess();" style="color:black" >请假进度</a> </li>
+                  <li title="请假记录"  class="appflag bmlistapp"> <a onClick="showleavehistory();"  style="color:black">请假记录</a> </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="content_right">
+        
+        <div class="tzgg_card" id="tzgg_card_personinfo">
+          <h1 class="gerenziliao">个人资料</h1>
+          <hr width="900px">
+          <div class="touxiang"><img src="img/11.jpg" alt=""></div>
+          <div class="xinxi">
+            <p class="id">李四</p>
+            <hr width="750px">
+            <p class="infor" id = "ac">学号：</p>
+			<p class="infor">学院：</p>
+			<p class="infor">专业：</p>
+			<p class="infor">班级：</p>
+			<p class="infor">电话：</p>
+			<p class="infor">请假次数：</p>
+          </div>
+        </div>
+
+        <div class="tzgg_card" id="tzgg_card_process" style = "display: none">
+          <h3 class="card_title">当前请假进度</h3>
+          <div id="apDiv1"></div>
+        </div>
+
+
+        <div class="tzgg_card" id="tzgg_card_leavehistory" style = "display: none">
+          <center>
+            <div style="font-size: xx-large;">
+              <p>&nbsp;</p>
+              请假记录表
+              <p>&nbsp;</p>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>请假单编号</th>
+                  <th>请假结束时间</th>
+                  <th>最终审核结果</th>
+                </tr>
+              </thead>
+              <tbody style="padding-bottom: 20px;">
+                <tr>
+                  <td id ='first'></td>
+                  <td id = 'second'></td>
+                  <td style="color: #007BFF;" id ='third'></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td style="color: #007BFF;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </center>
+          <ul class="pagination" style="float: right;" >
+            <li class="page-item" style=""><a class="page-link" href="#">上一页</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">下一页</a></li>
+          </ul>
+        </div>
+
+
+
+        <div class="tzgg_card" id="tzgg_card_leave"  style = "display: none">
+          <h3 class="card_title">请假/补假 </h3>
+          <table id="import" width="880" height="180" style="border:#000 solid 1px; margin:auto" >
+            <tr bordercolor="#0099FF">
+              <td>姓&nbsp;&nbsp;&nbsp;名</td>
+              <td><input id="name" type="text"></td>
+              <td>学&nbsp;&nbsp;&nbsp;号</td>
+              <td><input id="stuno" type="text"></td>
+            </tr>
+            <tr>
+              <td>请假类型</td>
+              <td><form name="form1" method="post" action="">
+                  <label for="version"></label>
+                  <select name="select" id="select1">
+                  <option value="请假">请假</option>
+                  <option value="补假">补假</option>
+                  </select>
+                  <select name="select" id="select2">
+                  <option value="早晚自习">早晚自习</option>
+                  <option value="寝室常规">寝室常规</option>
+                  <option value="课程">课程</option>
+                  </select>
+                </form></td>
+              <td>电话长号</td>
+              <td><input id="phone" type="text"></td>
+            </tr>
+            <tr>
+              <td>请假起始时间</td>
+              <td><label for="datetime"></label>
+                <input id="datetime1" type="datetime-local"></td>
+              <td>请假结束时间</td>
+              <td><label for="datetime"></label>
+                <input id="datetime2" type="datetime-local"></td>
+            </tr>
+          </table>
+          <div id="reason">
+            <div id= "title">请假原因</div>
+            <div id="mainreason">
+              <input id="detail" type="text">
+            </div>
+          </div>
+          <div style=" padding-left:770px; padding-top:30px; margin:auto;">
+            <input type="button" value="提交" style="width:100px; height:35px; border-radius:7px; background-color:#39F" id = "submit">
+          </div>
+        </div>
+		  
+      </div>
+    </div>
+  </div>
+  <div class="zjnu_footer">版权信息：© 2020 浙江师范大学</div>
+</div>
+</body>
+
+
+
+<!--进度js-->
+<script type="text/javascript">
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open('post','http://127.0.0.1:5000/process');
+    //设置请求参数格式的类型（post请求必须设置）
+    xhr2.setRequestHeader('content-Type','application/json');
+    var id = window.location.href.split("=")[1];
+    xhr2.send(JSON.stringify({id:id}));
+    xhr2.onload = function(){
+    var s = JSON.parse(xhr2.responseText);
+    var n = s.result;
+    var flag = s.flag;
+    if(flag == 0)
+      change(n + 1);
+    else
+      change(n + 5);
+    var reason = s.reason;
+    if (reason != '')
+      alert('拒绝理由:' + reason);
+      
+  }
+  
+  function  change(flag){
+    var a = document.getElementById("apDiv1");
+    var address="<img src='img/" + flag + ".png'>";//拼接一下地址
+    a.innerHTML=address;
+  }
+</script>
+
+<!--历史js-->
+<script>
+	var xhr1 = new XMLHttpRequest();
+	xhr1.open('post','http://127.0.0.1:5000/leavehistory');
+	xhr1.setRequestHeader('content-Type','application/json');
+	var id = window.location.href.split("=")[1];
+	xhr1.send(JSON.stringify({id:id}));
+	xhr1.onload = function(){	
+					var s = JSON.parse(xhr1.responseText);
+					var id = s.id;
+					var time = s.time;
+					var yon = s.yon;
+					var a = document.getElementById("first");
+					var b = document.getElementById("second");
+					var c = document.getElementById("third");
+					a.innerHTML = id;
+					b.innerHTML = time;
+					c.innerHTML = yon;
+				}
+</script> 
+
+<!--请假表js-->
+<script type="text/javascript" src="js/test.js"></script>
+</html>
+<!--个人信息js-->
+<script type="text/javascript" src="js/personmessage.js"></script>
+
+<script type="text/javascript" src="js/background.js"></script>

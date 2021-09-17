@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+.jindu{
+	padding: 20px;
+	margin:2px;
+	width:90px;
+	height:90px;
+	border-radius:100px;
+	text-align: center;
+	line-height: 90px;
+	font-weight: 600;
+	float:left;
+}
+.jindu img{
+	padding-top:20px;
+	margin-bottom: 20px;
+}
+.jindu.left{
+	float:left;
+	clear:left;
+}
+.jindu.right{
+	float:right;
+	clear:right;
+}
+.jindu.clc{
+	clear:left;
+}
+.jindu.no{
+	border:10px solid rgba(220,40,43,0.70);
+}
+.jindu.yes{
+	border:10px solid rgba(121,241,9,0.7);
+}

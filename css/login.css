@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+
+form{
+    display: flex;
+}
+
+.photo {
+    height: 452px;
+    width: 650px;
+    float: left;
+    padding-left: 8px;
+}
+.word {
+	font-family: "微软雅黑 Light";
+	font-size: x-large;
+	color: #0078D7;
+	font-weight: bold;
+}
+.login_radiogroup{
+	margin-bottom: 50px;
+	margin-left:50px;
+	height: 150px;
+	width: 200px;
+	font-family: "微软雅黑 Light";
+	font-size: medium;
+}
+.all_login {
+	height: 450px;
+	width: 350px;
+	float: right;
+	background-color: rgb(255,255,255);
+}
+.user_login {
+    height: 30px;
+    width: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    font-weight: bold;
+    font-family: "微软雅黑 Light";
+    font-size: large;
+    margin-right: auto;
+}
+.login_txt {
+    height: 30px;
+    width: 250px;
+    color: rgb(153,153,153);
+    font-size: small;
+    margin-bottom: 20px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+}
+.login_button {
+    width: 240px;
+    height: 40px;
+    border: none;
+    background-color: #00a8ff;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    transition: .3s linear;
+    margin-left: 50px;
+}
+
+.login_button:hover {
+	transform:rotateY(-15deg);
+	box-shadow:15px 0 15px rgba(89,195,255,0.58);  
+}
+
+.pic-small   {
+    margin-top: 0px;
+    margin-left: 20px;
+}
+
+
+
+

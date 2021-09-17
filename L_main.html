@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>学生请假系统</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/iconfont.css">
+<script type="text/javascript" src="js/checklist.js"></script>
+<!--请假单审核js-->
+<script type="text/javascript">
+function showdiv(id,s){ 
+  var t=document.getElementById(id);
+  name = s.slice(25,27);
+  var xhr = new XMLHttpRequest();
+  xhr.open('post','http://127.0.0.1:5000/showcheck');
+  //设置请求参数格式的类型（post请求必须设置）
+  xhr.setRequestHeader('content-Type','application/json');
+  xhr.send(JSON.stringify({name:name}));
+  var infor = document.getElementsByClassName("show");
+  xhr.onload = function(){
+    var x = JSON.parse(xhr.responseText);
+    var kind = x.kind;
+    var id = x.stuID;
+    var names = x.stuName;
+    var releave = x.releave;
+    var startDate = x.startDate;
+    var endDate = x.endDate;
+    var reason = x.reason;
+    var tel = x.tel;
+    infor[0].innerHTML = '请假项目：' + kind ;
+    infor[1].innerHTML = name;
+    infor[2].innerHTML = id;
+    infor[3].innerHTML = releave;
+    infor[4].innerHTML = tel;
+    infor[5].innerHTML = startDate;
+    infor[6].innerHTML = endDate;
+    infor[7].innerHTML = reason;
+  }
+  t.style.display='block';    
+}
+
+
+
+function clickOK()
+{
+  var xhr = new XMLHttpRequest();
+  xhr.open('post','http://127.0.0.1:5000/submityes');
+  xhr.setRequestHeader('content-Type','application/json');
+  id = document.getElementById("stuid").innerHTML;
+  time = document.getElementById("btime").innerHTML;
+  var type = window.location.href.split("=")[2];
+  xhr.send(JSON.stringify({id:id,time:time,type:type}));
+  xhr.onload = function(){
+    alert(xhr.responseText);
+  }
+}
+function clickNO()
+{
+  var answer = window.prompt("拒绝原因：");
+  var xhr = new XMLHttpRequest();
+  xhr.open('post','http://127.0.0.1:5000/submitno');
+  xhr.setRequestHeader('content-Type','application/json');
+  id = document.getElementById("stuid").innerHTML;
+  time = document.getElementById("btime").innerHTML;
+  var type = window.location.href.split("=")[2];
+  xhr.send(JSON.stringify({id:id,time:time,type:type,reason:answer}));
+  xhr.onload = function(){
+    alert(xhr.responseText);
+  }
+}
+</script>
+
+<!--显示隐藏js-->
+<script type="text/javascript">
+function show(id){ 
+  var t=document.getElementById(id);
+  t.style.display='block';    
+}
+
+function hidediv(id){
+  var s=document.getElementById(id);
+  s.style.display='none';   
+}
+
+function showLmain()
+{
+  show('Lmain');
+  hidediv('Lquexi');
+  hidediv('Lkoufen');
+  hidediv('tzgg_card1')
+  hidediv('tzgg_card2')
+}
+
+function showLquexi()
+{
+  hidediv('Lmain');
+  show('Lquexi');
+  hidediv('Lkoufen');
+  hidediv('tzgg_card1')
+  hidediv('tzgg_card2')
+}
+
+function showLkoufen()
+{
+  hidediv('Lmain');
+  hidediv('Lquexi');
+  show('Lkoufen');
+  hidediv('tzgg_card1')
+  hidediv('tzgg_card2')
+}
+function showLchecklist()
+{
+  hidediv('Lmain');
+  hidediv('Lquexi');
+  hidediv('Lkoufen');
+  show('tzgg_card1')
+  hidediv('tzgg_card2')
+}
+function showLcheck()
+{
+  hidediv('Lmain');
+  hidediv('Lquexi');
+  hidediv('Lkoufen');
+  hidediv('tzgg_card1')
+  show('tzgg_card2')
+}
+
+</script>
+</head>
+<body>
+<div class="main_wrap" tabindex="0" style="overflow: hidden; outline: none;">
+  <canvas id="canvas" style="position:absolute;z-index:-1;"></canvas>
+  <div class="zjnu_header">
+    <div class="header_inner"> <img class="logo" src="img/logo2.png" alt=""> <span class="wsbsdt">学生请假系统———生活部</span>
+      <div class="head_right">
+        <p class="page_item"><a onclick="showLmain()" style="color:white">首页</a></p>
+        <p class="page_item"><a onclick="showLchecklist()" style="color:white">请假审核</a></p>
+        <p id="mycenter">扣分管理中心<i class="iconfont icon-down"></i> <span class="grzxnum" style="display: none;"></span></p>
+        <p id="gologin" class="gologin"><a href="login.html" style="color:white"><img src="img/dltx.png" alt=""> <span>退出登录</span></a></p>
+        <p id="haslogin"><img src="http://ehall.zjnu.edu.cn/new/indexzjnu.html" alt=""> <span></span></p>
+      </div>
+    </div>
+  </div>
+  <div class="zjnu_user_link" >
+    <p><a href="LifeDepartment/L_koufen.html" target="_blank">扣分管理</a><span class="rwzxnum"></span></p>
+    <p><a href="LifeDepartment/L_bujia.html" target="_blank">补假提醒</a></p>
+  </div>
+  <div class="zjnu_topbg"> </div>
+  <div class="zjnu_content" style="display: block;">
+    <div class="content_home">
+      <div class="content_left">
+        <h3 class="fwbmsx">事项</h3>
+        <ul class="fwbm_wrap">
+          <li labelid="2__6482a78d-8cde-4a2d-b36f-342c57ffab96" class="fwbm_list_item"><a onclick="showLmain()">首页</a><i class="iconfont icon-keyboard_arrow_right"></i></li>
+          <li labelid="2__6482a78d-8cde-4a2d-b36f-342c57ffab96" class="fwbm_list_item"><a onclick="showLchecklist()">请假审核</a><i class="iconfont icon-keyboard_arrow_right"></i></li>
+          <li labelid="2__b0e642fa-2b51-445b-9ab8-b21003420771" class="fwbm_list_item">扣分管理中心<i class="iconfont icon-keyboard_arrow_right"></i>
+            <div class="showfwsxapp">
+              <div class="fwbm_app_waic" style="width: 200px; top: 0px;">
+                <ul class="fwbm_app_wrap">
+                  <li title="扣分管理" unviewabledescription="1" appid="5643694976290990" class="appflag bmlistapp"><a onclick="showLquexi()">缺席统计</a></li>
+                  <li title="补假提醒" unviewabledescription="1" appid="5643695525107550" class="appflag bmlistapp"><a onclick="showLkoufen()">扣分统计</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="content_right">
+        <div class="tzgg_card" id="Lmain">
+		      <a class="choice" onclick="showLchecklist()"><img src="img/shenhe.png" width="100" height="100" alt=""/><br><h1>请假审核</h1></a>
+          <a class="choice" onclick="showLquexi()"><img src="img/naming_test.png" width="100" height="100" alt=""/><br><h1>缺席统计</h1></a>
+		      <a class="choice" onclick="showLkoufen()"><img src="img/tongji.png" width="100" height="100" alt=""/><br><h1>扣分统计</h1></a>
+		      <a class="choice" href="#"><img src="img/xueyuan.png" width="100" height="100" alt=""/><br><h1>学院</h1></a>
+		  </div>
+
+         <div class="tzgg_card" id="Lquexi" style = "display: none">
+          <center>
+            <div style="font-size: xx-large;">
+              <p>&nbsp;</p>
+              缺席情况统计表
+              <p>&nbsp;</p>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>学号</th>
+                  <th>缺勤时间</th>
+                  <th>是否请假</th>
+                  <th>补假截止时间</th>
+                </tr>
+              </thead>
+              <tbody style="padding-bottom: 20px;" id="quexidata">
+
+              </tbody>
+            </table>
+          </center>
+          <ul class="pagination" style="float: right;" >
+            <li class="page-item" style=""><a class="page-link" href="#">上一页</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">下一页</a></li>
+          </ul>
+        </div>
+
+
+        <div class="tzgg_card" id="Lkoufen" style = "display: none">
+          <center>
+            <div style="font-size: xx-large;">
+              <p>&nbsp;</p>
+              扣分统计表
+              <p>&nbsp;</p>
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>学号</th>
+                  <th>扣分分值</th>
+                  <th>缺勤时间</th>
+                </tr>
+              </thead>
+              <tbody style="padding-bottom: 20px;" id="koufendata">
+
+              </tbody>
+            </table>
+          </center>
+          <ul class="pagination" style="float: right;" >
+            <li class="page-item" style=""><a class="page-link" href="#">上一页</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">下一页</a></li>
+          </ul>
+      </div>
+
+
+
+      <div class="tzgg_card" id="tzgg_card1" style = "display: none">
+          <h3 class="card_title">请假审核</h3>
+          <ul class="tzgg_content">
+
+<!--            <li><a href="A_check.html" target="_blank"><span class="tzgg_title">吴晓蕾的请假申请</span></a><span class="tzgg_time">2019-11-27</span></li>-->
+          </ul>
+        </div>
+
+      <div class="tzgg_card" id="tzgg_card2" style = "display: none">
+          <h3 class="card_title">请假审核</h3>
+          <table id="import" width="880" height="180" style="border:#000 solid 1px; margin:auto" >
+            <tr bordercolor="#0099FF">
+              <td colspan="4" class = "show">
+
+            </tr>
+            <tr bordercolor="#0099FF">
+              <td>姓&nbsp;&nbsp;&nbsp;名</td>
+              <td class = 'show'></td>
+              <td>学&nbsp;&nbsp;&nbsp;号</td>
+              <td class = 'show' id = "stuid"></td>
+            </tr>
+            <tr>
+              <td>请假/补假</td>
+              <td class = 'show'></td>
+              <td>电话长号</td>
+              <td class = 'show'></td>
+            </tr>
+            <tr>
+              <td>请假起始时间</td>
+              <td class = 'show'  id = "btime"></td>
+              <td >请假结束时间</td>
+              <td class = 'show'></td>
+            </tr>
+          </table>
+          <div id="reason">
+            <div id= "title">请假原因</div>
+            <div id="mainreason" class = 'show'></div>
+          </div>
+          <div class="buttons"> <a class="button-2" onClick="showdiv('tzgg_card1','');hidediv('tzgg_card2');return clickNO();">拒绝</a> 
+        <a class="button-2" onclick="showdiv('tzgg_card1','');hidediv('tzgg_card2');return clickOK();">同意</a> </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="zjnu_footer">版权信息：© 2020 浙江师范大学</div>
+</div>
+</body>
+</html>
+
+
+
+
+<script>
+		var xhr5 = new XMLHttpRequest();
+		xhr5.open('post','http://127.0.0.1:5000/cut');
+		xhr5.setRequestHeader('content-Type','application/json');
+		var id = window.location.href.split("=")[1];
+		xhr5.send(JSON.stringify({id:id}));
+		xhr5.onload = function(){
+			var s = JSON.parse(xhr5.responseText);
+			console.log(s);
+			for(i = 0;i < s.id.split(' ').length;i++ )
+			{
+				var iteams = {'id':s.id.split(' ')[i],'score':s.score.split(' ')[i],'time':s.time.split(' ')[i]};
+				var tbody = document.querySelector('#koufendata'); 
+				var str = '';
+				str += "<tr><td>" + iteams['id']+ "</td><td>" + iteams['score'] + "</td><td>" + iteams['time'] + "</td></tr>"; // 拼接li标签部分和字符串内容
+				tbody.innerHTML += str;
+			}
+		}
+		var xhr4 = new XMLHttpRequest();
+		xhr4.open('post','http://127.0.0.1:5000/releave');
+		xhr4.setRequestHeader('content-Type','application/json');
+		var id = window.location.href.split("=")[1];
+		xhr4.send(JSON.stringify({id:id}));
+		xhr4.onload = function(){
+			var s = JSON.parse(xhr4.responseText);
+			console.log(s);
+			for(i = 0;i < s.id.split(' ').length;i++ )
+			{
+				var iteams = {'id':s.id.split(' ')[i],'time1':s.time1.split(' ')[i],'flag':s.flag.split(' ')[i],'time2':s.time2.split(' ')[i]};
+				var tbody = document.querySelector('#quexidata'); 
+				var str = '';
+				str += "<tr><td>" + iteams['id']+ "</td><td>" + iteams['time1'] + "</td><td>" + iteams['flag'] + "</td><td>" + iteams['time2'] + "</td></tr>"; // 拼接li标签部分和字符串内容
+				tbody.innerHTML += str;
+			}
+		}
+
+
+  		
+
+    
+</script>
+<script type="text/javascript" src="js/background.js"></script>

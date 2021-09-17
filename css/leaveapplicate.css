@@ -1,0 +1,57 @@
+@charset "utf-8";
+#import td
+{
+	line-height:60px;
+	font-size:18px;
+	width:25%;
+	border:#000 solid 1px;
+	padding-left:30px;
+}
+#reason
+{
+	 border-bottom:#000 solid 1px;
+	 border-left:#000 solid 1px;
+	 border-right:#000 solid 1px;
+	 width:878px;
+	 height:260px; 
+	 background-color:#FFF;
+	 margin:auto;
+}
+#reason #title
+{
+	font-size:20px;
+	padding-left: 30px;
+	padding-top: 20px;	
+}
+
+#reason #mainreason
+{
+	padding-left:30px;
+	margin-top:10px;
+	height:208px;
+}
+#detail
+{
+	width:820px;
+	height:180px;
+}
+.buttons {
+	width: 900px;
+	padding:20px 0 0 0;
+	text-align:right;
+}
+.buttons a {margin-right:10px;}	
+
+.buttons a:hover {cursor:pointer;}
+.button-2 {
+	display:inline-block; 
+	padding:0px 17px 3px;
+	font-family:"华文楷体";
+	color:#FDF5F5;
+	font-size:21px;
+	background:#127ED5;
+	margin:0 0 3px 3px;
+	overflow: hidden;
+}
+.button-2:hover {background:#000;}/* CSS Document */
+

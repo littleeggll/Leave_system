@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>学生请假系统</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/iconfont.css">
+<script type="text/javascript" src="js/checklist.js"></script>
+<!--请假单审核js-->
+<script type="text/javascript">
+function showdiv(id,s){ 
+  var t=document.getElementById(id);
+  name = s.slice(25,27);
+  var xhr = new XMLHttpRequest();
+  xhr.open('post','http://127.0.0.1:5000/showcheck');
+  //设置请求参数格式的类型（post请求必须设置）
+  xhr.setRequestHeader('content-Type','application/json');
+  xhr.send(JSON.stringify({name:name}));
+  var infor = document.getElementsByClassName("show");
+  xhr.onload = function(){
+    var x = JSON.parse(xhr.responseText);
+    var kind = x.kind;
+    var id = x.stuID;
+    var names = x.stuName;
+    var releave = x.releave;
+    var startDate = x.startDate;
+    var endDate = x.endDate;
+    var reason = x.reason;
+    var tel = x.tel;
+    infor[0].innerHTML = '请假项目：' + kind ;
+    infor[1].innerHTML = name;
+    infor[2].innerHTML = id;
+    infor[3].innerHTML = releave;
+    infor[4].innerHTML = tel;
+    infor[5].innerHTML = startDate;
+    infor[6].innerHTML = endDate;
+    infor[7].innerHTML = reason;
+  }
+  t.style.display='block';    
+}
+
+
+
+function clickOK()
+{
+  var xhr1 = new XMLHttpRequest();
+  xhr1.open('post','http://127.0.0.1:5000/submityes');
+  xhr1.setRequestHeader('content-Type','application/json');
+  id = document.getElementById("stuid").innerHTML;
+  time = document.getElementById("btime").innerHTML;
+  var type = window.location.href.split("=")[2];
+  xhr1.send(JSON.stringify({id:id,time:time,type:type}));
+  xhr1.onload = function(){
+    alert(xhr1.responseText);
+  }
+}
+function clickNO()
+{
+  var answer = window.prompt("拒绝原因：");
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('post','http://127.0.0.1:5000/submitno');
+  xhr2.setRequestHeader('content-Type','application/json');
+  id = document.getElementById("stuid").innerHTML;
+  time = document.getElementById("btime").innerHTML;
+  var type = window.location.href.split("=")[2];
+  xhr2.send(JSON.stringify({id:id,time:time,type:type,reason:answer}));
+  xhr2.onload = function(){
+    alert(xhr2.responseText);
+  }
+}
+</script>
+
+<!--显示隐藏js-->
+<script type="text/javascript">
+function show(id){ 
+  var t=document.getElementById(id);
+  t.style.display='block';    
+}
+
+function hidediv(id){
+  var s=document.getElementById(id);
+  s.style.display='none';   
+}
+
+function showAmain()
+{
+  show('Amain');
+  hidediv('tzgg_card1')
+  hidediv('tzgg_card2')
+}
+
+function showLchecklist()
+{
+  hidediv('Amain');
+  show('tzgg_card1')
+  hidediv('tzgg_card2')
+}
+function showLcheck()
+{
+  hidediv('Amain');
+  hidediv('tzgg_card1')
+  show('tzgg_card2')
+}
+
+</script>
+</head>
+<body>
+<div class="main_wrap" tabindex="0" style="overflow: hidden; outline: none;">
+	<canvas id="canvas" style="position:absolute;z-index:-1;"></canvas>
+  <div class="zjnu_header">
+    <div class="header_inner"> <img class="logo" src="img/logo2.png" alt=""> <span class="wsbsdt">学生请假系统——审核端</span>
+      <div class="head_right"> 
+		  <p class="page_item"><a onclick="showAmain()" style="color:white">首页</a></p>
+		  <p class="page_item"><a onclick="showLchecklist()" style="color:white">请假审核</a> </p>
+		  <p id="gologin" class="gologin"><a href="login.html" style="color:white"><img src="img/dltx.png" alt=""> <span>退出登录</span></a></p>
+		</div>
+    </div>
+  </div>
+  <div class="zjnu_topbg"> </div>
+  <div class="zjnu_content" style="display: block;">
+    <div class="content_home">
+      <div class="content_left">
+        <h3 class="fwbmsx">事项</h3>
+        <ul class="fwbm_wrap">
+          <a onclick="showAmain()">
+          <li labelid="2__b0e642fa-2b51-445b-9ab8-b21003420771" class="fwbm_list_item">首页<i class="iconfont icon-keyboard_arrow_right"></i></li></a>
+          <a onclick="showLchecklist()">
+          <li labelid="2__b0e642fa-2b51-445b-9ab8-b21003420771" class="fwbm_list_item">请假审核<i class="iconfont icon-keyboard_arrow_right"></i></li>
+          </a>
+        </ul>
+      </div>
+
+
+      <div class="content_right">
+        <div class="tzgg_card" id="Amain"> 
+          <a class="choice" onclick="showLchecklist()"><img src="img/shenhe.png" width="100" height="100" alt=""/><br>
+          <h1>审核</h1></a>
+          <a class="choice" href="#"><img src="img/xueyuan.png" width="100" height="100" alt=""/><br>
+          <h1>学院</h1></a>
+        </div>
+
+        <div class="tzgg_card" id="tzgg_card1" style = "display: none">
+          <h3 class="card_title">请假审核</h3>
+          <ul class="tzgg_content">
+
+          <!--=<li><a href="A_check.html" target="_blank"><span class="tzgg_title">吴晓蕾的请假申请</span></a><span class="tzgg_time">2019-11-27</span></li>-->
+          </ul>
+        </div>
+
+      <div class="tzgg_card" id="tzgg_card2" style = "display: none">
+          <h3 class="card_title">请假审核</h3>
+          <table id="import" width="880" height="180" style="border:#000 solid 1px; margin:auto" >
+            <tr bordercolor="#0099FF">
+              <td colspan="4" class = "show">
+
+            </tr>
+            <tr bordercolor="#0099FF">
+              <td>姓&nbsp;&nbsp;&nbsp;名</td>
+              <td class = 'show'></td>
+              <td>学&nbsp;&nbsp;&nbsp;号</td>
+              <td class = 'show' id = "stuid"></td>
+            </tr>
+            <tr>
+              <td>请假/补假</td>
+              <td class = 'show'></td>
+              <td>电话长号</td>
+              <td class = 'show'></td>
+            </tr>
+            <tr>
+              <td>请假起始时间</td>
+              <td class = 'show'  id = "btime"></td>
+              <td >请假结束时间</td>
+              <td class = 'show'></td>
+            </tr>
+          </table>
+          <div id="reason">
+            <div id= "title">请假原因</div>
+            <div id="mainreason" class = 'show'></div>
+          </div>
+          <div class="buttons"> <a class="button-2" onClick="showdiv('tzgg_card1','');hidediv('tzgg_card2');return clickNO();">拒绝</a> 
+        <a class="button-2" onclick="showdiv('tzgg_card1','');hidediv('tzgg_card2');return clickOK();">同意</a> </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <div class="zjnu_footer">版权信息：© 2020 浙江师范大学</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="js/background.js"></script>

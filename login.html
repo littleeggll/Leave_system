@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>学生请假系统登录界面</title><link rel="stylesheet" type="text/css" href="css/login.css"/>
+
+</head>
+
+<body>
+<table width="1020" height="" border="0" align="center">
+  <tr>
+    <td height="75" class="word"> 浙江师范大学学生请假系统</td>
+  </tr>
+  <tr>
+    <td height="479" bgcolor="#EFEFEF"><div class="photo"><img src="img/sy.png" width="650" height="452" /></div>
+		<div class="all_login">
+        <div class="user_login">用户登录</div>
+       
+	<form id="form1" name="form1" method="post" action="">
+        <img class="pic-small" src="img/user.jpg" width="30" height="30" alt=""/>&nbsp;&nbsp;&nbsp;
+	    <input name="textfield" type="text" class="login_txt" id="user_id" placeholder="&nbsp;用户名" value="" />
+	</form>
+        <form id="form2" name="form2" method="post" action="">
+         <img class="pic-small" src="img/pwd.png" width="30" height="30" alt=""/>&nbsp;&nbsp;&nbsp;
+          <input name="textfield2" type="password" class="login_txt" id="user_password" placeholder="&nbsp;密码" value="" />
+           
+<label for="textfield2"></label>
+        </form>
+        <div class="login_radiogroup">选择身份：
+             <form id="form3" name="form3" method="post" action="">
+               <p>
+                <label>
+                   <input type="radio" name="RadioGroup" value="学生" id="Radio_student" />
+                   学生</label>
+                 <br />
+                 <label>
+                   <input type="radio" name="RadioGroup" value="生活委员" id="Radio_lifestudent" />
+                   生活委员</label>
+                 <br />
+                 <label>
+                   <input type="radio" name="RadioGroup" value="部门成员" id="Radio_lifedepartment" />
+                   生活部成员</label>
+                 <br />
+                 <label>
+                   <input type="radio" name="RadioGroup" value="班主任" id="Radio_classteacher" />
+                   班主任</label>
+                 <br />
+                 <label>
+                   <input type="radio" name="RadioGroup" value="辅导员" id="Radio_counsellor" />
+                   辅导员</label>
+                 <br />
+               </p>
+             </form>
+        </div>
+           
+           <input name="登录" type="submit" value="登录" class="login_button" id="Button_login"/></div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+<script type="text/javascript" src="js/login.js"></script>
+
+<script type="text/javascript" src="js/follow.js"></script>
+
+<script type="text/javascript" color="74,112,139" opacity="0.8" zIndex="-2" count="350" src="js/follow.js" >
+    function async_load() {
+           
+        i.scrolling = "no";
+        i.frameborder = "0";
+        i.border = "0";
+        i.setAttribute("frameborder", "0", 0);
+        i.width = "100px";
+        i.height = "20px";
+        document.getElementById("huiyicontent").appendChild(i);
+    }
+
+    if (window.addEventListener) {window.addEventListener("load", async_load, false);}
+    else if (window.attachEvent) {window.attachEvent("onload", async_load);}
+    else {window.onload = async_load;}
+</script>
